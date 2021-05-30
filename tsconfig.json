@@ -13,11 +13,20 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": ".",
-    "paths": {
-      "~/config": ["./server.config.ts"]
-    }
+    "baseUrl": "."
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js", "server/constants/constants.js", "server/controllers/user.js", "server/middlewares/trim.js", "server/models/user.js", "server/routes/user.js", "server/config.js", "server/index.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "next.config.js",
+    "server/constants/constants.ts",
+    "server/controllers/user.ts",
+    "server/middlewares/trim.ts",
+    "server/models/user.ts",
+    "server/routes/user.ts",
+    "server/config.js",
+    "server/index.js"
+  ],
   "exclude": ["node_modules"]
 }

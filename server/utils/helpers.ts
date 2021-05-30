@@ -1,4 +1,4 @@
-export const slugify = (str) => {
+const slugify = (str: string): string => {
   str = str.trim();
   str = str.toLowerCase();
 
@@ -17,4 +17,24 @@ export const slugify = (str) => {
     .replace(/^-+/, "") // trim - from start of text
     .replace(/-+$/, "") // trim - from end of text
     .replace(/-/g, "_");
+};
+
+const generateIdentifier = (length: number): string => {
+  const result = [];
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  const charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result.push(
+      characters.charAt(Math.floor(Math.random() * charactersLength))
+    );
+  }
+
+  return result.join("");
+};
+
+export default {
+  slugify,
+  generateIdentifier,
 };

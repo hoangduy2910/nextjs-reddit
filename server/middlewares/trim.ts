@@ -1,11 +1,12 @@
-const trim = async (req, res, next) => {
+import { Request, Response, NextFunction } from "express";
+
+const trim = async (req: Request, res: Response, next: NextFunction) => {
   Object.keys(req.body).forEach((key) => {
     if (typeof req.body[key] === "string") {
       req.body[key] = req.body[key].trim();
     }
   });
-  
+
   next();
 };
-
-module.exports = trim;
+export default trim;
