@@ -7,6 +7,7 @@ const EMAIL_EXIST = "Email already existed !!!";
 const USERNAME_EXIST = "Username already existed !!!";
 const PASSWORD_INVALID = "Password is not corrected !!!";
 const PASSWORD_NOT_MATCH = "Email is not matched !!!";
+const EMAIL_PASSWORD_EMPTY = "Email and password cannot be empty !!!";
 
 module.exports = {
   FAIL,
@@ -15,4 +16,5 @@ module.exports = {
   USERNAME_EXIST,
   PASSWORD_INVALID,
   PASSWORD_NOT_MATCH,
+  EMAIL_PASSWORD_EMPTY,
 };

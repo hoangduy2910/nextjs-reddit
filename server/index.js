@@ -1,21 +1,21 @@
 const next = require("next");
+const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 
 const trim = require("./middlewares/trim");
-
+const config = require("./config");
 const userRoutes = require("./routes/user");
+const postRoutes = require("./routes/post");
 
 const server = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || config.PORT;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const MONGODB_URI =
-  process.env.MONGODB_URI ||
-  "mongodb+srv://admin:admin@cluster0.po6sj.mongodb.net/nextjs-reddit?retryWrites=true&w=majority";
+const MONGODB_URI = process.env.MONGODB_URI || config.MONGODB_URI;
 
 app
   .prepare()
@@ -25,6 +25,9 @@ app
 
     // Parse application/json
     server.use(bodyParser.json());
+
+    // Parse Cookie
+    server.use(cookieParser());
 
     // Allows for cross origin domain request:
     server.use(function (req, res, next) {
@@ -41,6 +44,7 @@ app
 
     // Routes
     server.use("/api/user", userRoutes);
+    server.use("/api/post", postRoutes);
 
     // MongoDB
     mongoose
