@@ -9,31 +9,32 @@ import Post from "../models/post";
 const NAMESPACE = "PostController";
 
 const createPost = async (req: Request, res: Response) => {
-  const { title, body, subName } = req.body;
-
-  // Validate Title
-  if (!title.trim()) {
-    return res
-      .status(StatusCodes.NOT_FOUND)
-      .json({ success: false, error: constants.TITLE_EMPTY });
-  }
-
-  // Generate Identifier
-  const identifier = helpers.generateIdentifier(7);
-
-  // Generate Slug
-  const slug = helpers.slugify(title);
-
-  // Create Post
-  const newPost = new Post({
-    identifier,
-    title,
-    slug,
-    body,
-    subName,
-  });
-
   try {
+    const { title, body, subName } = req.body;
+
+    // Validate Title
+    if (!title.trim()) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ success: false, error: constants.TITLE_EMPTY });
+    }
+
+    // Generate Identifier
+    const identifier = helpers.generateIdentifier(7);
+
+    // Generate Slug
+    const slug = helpers.slugify(title);
+
+    // Create New Post
+    const newPost = new Post({
+      identifier,
+      title,
+      slug,
+      body,
+      subName,
+    });
+
+    // Save Post
     await newPost.save();
   } catch (err) {
     logging.ERROR(NAMESPACE, "[createPost]", err);
@@ -50,7 +51,3 @@ export default {
   updatePost,
   deletePost,
 };
-
-// exports.createPost = createPost;
-// exports.updatePost = updatePost;
-// exports.deletePost = deletePost;

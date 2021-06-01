@@ -9,9 +9,9 @@ const User = new Schema(
     firstName: { type: String, required: false },
     lastName: { type: String, required: false },
     image: { type: String, required: true },
-    posts: [{ type: Types.ObjectId, required: true, ref: "Post" }],
+    posts: [{ type: Types.ObjectId, required: true, ref: "Posts" }],
   },
   { timestamps: true, toObject: { getters: true } }
 );
 
-export default model<IUser>("User", User);
+export default model<IUser>("Users", User);

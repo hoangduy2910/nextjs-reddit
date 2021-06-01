@@ -8,9 +8,9 @@ const postSchema = new Schema(
     slug: { type: String, require: true },
     body: { type: String, require: false },
     subName: { type: String, require: true },
-    user: { type: Types.ObjectId, require: true, ref: "User" },
+    user: { type: Types.ObjectId, require: true, ref: "Users" },
   },
   { timestamps: true, toObject: { getters: true } }
 );
 
-export default model<IPost>("Post", postSchema);
+export default model<IPost>("Posts", postSchema);
