@@ -8,10 +8,11 @@ const router = express.Router();
 // Public Routes
 router.post("/login", controller.login);
 router.post("/register", controller.createUser);
-router.get("/:id", controller.getUserById);
+// router.get("/:id", controller.getUserById);
 
 // Auth Routes
-// router.get("/profile", auth, controller.getUserProfile);
+router.get("/logout", auth, controller.logout);
 router.patch("/:id", auth, controller.updateUser);
+router.get("/profile", auth, controller.getUserProfile);
 
 export default router;
