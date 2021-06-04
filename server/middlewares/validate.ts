@@ -25,8 +25,7 @@ const register = () => {
 
 const login = () => {
   return [
-    check("email", constants.EMAIL_EMPTY).not().isEmpty(),
-    check("email", constants.EMAIL_INVALID).normalizeEmail().isEmail(),
+    check("userName", constants.USERNAME_EMPTY).not().isEmpty(),
     check("password", constants.PASWORD_EMPTY).not().isEmpty(),
     check("password", constants.PASSWORD_MIN_LENGTH).isLength({
       min: 6,

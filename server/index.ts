@@ -1,4 +1,5 @@
 import express, { Application } from "express";
+import dotenv from "dotenv";
 import next from "next";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
@@ -11,6 +12,8 @@ import trim from "./middlewares/trim";
 import logger from "./middlewares/logger";
 import userRoutes from "./routes/user";
 import postRoutes from "./routes/post";
+
+dotenv.config();
 
 const NAMESPACE = "Server";
 const dev = process.env.NODE_ENV !== "production";
@@ -35,6 +38,7 @@ app
       cors({
         credentials: true,
         origin: process.env.ORIGIN,
+        optionsSuccessStatus: 200,
       })
     );
 

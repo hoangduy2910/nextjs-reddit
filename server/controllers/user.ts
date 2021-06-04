@@ -18,7 +18,7 @@ const getUserById = async (req: Request, res: Response) => {
 
     const user = await User.findById(id);
     if (!user) {
-      return res.status(StatusCodes.NOT_FOUND).json({
+      return res.status(StatusCodes.OK).json({
         success: false,
         error: {
           id: constants.USER_NOT_EXIST,
@@ -51,15 +51,15 @@ const login = async (req: Request, res: Response) => {
   }
 
   try {
-    const { email, password } = req.body;
+    const { userName, password } = req.body;
 
-    // Validate Email
-    const user = await User.findOne({ email });
+    // Validate USername
+    const user = await User.findOne({ userName });
     if (!user) {
-      return res.status(StatusCodes.NOT_FOUND).json({
+      return res.status(StatusCodes.OK).json({
         success: false,
         error: {
-          email: constants.USER_NOT_EXIST,
+          userName: constants.USER_NOT_EXIST,
         },
       });
     }

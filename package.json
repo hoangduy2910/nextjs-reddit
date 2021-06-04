@@ -34,6 +34,7 @@
     "autoprefixer": "^10.0.4",
     "chalk": "^4.1.1",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express-validator": "^6.11.1",
     "postcss": "^8.1.10",
     "tailwindcss": "^2.1.1",

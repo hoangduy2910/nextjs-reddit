@@ -10,15 +10,15 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
     const { token } = req.cookies;
     if (!token) {
       return res
-        .status(StatusCodes.UNAUTHORIZED)
-        .json({ success: false, error: "Unauthentication !!!" });
+        .status(StatusCodes.OK)
+        .json({ success: false, error: constants.UNAUTHENTICATION });
     }
 
     const { userName }: any = jwt.verify(token, process.env.SECRET_KEY);
     if (!userName) {
       return res
-        .status(StatusCodes.UNAUTHORIZED)
-        .json({ success: false, error: "Invalid Token !!!" });
+        .status(StatusCodes.OK)
+        .json({ success: false, error: constants.TOKEN_INVALID });
     }
 
     next();

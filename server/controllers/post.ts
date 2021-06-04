@@ -14,7 +14,7 @@ const createPost = async (req: Request, res: Response) => {
 
     // Validate Title
     if (!title.trim()) {
-      return res.status(StatusCodes.NOT_FOUND).json({
+      return res.status(StatusCodes.OK).json({
         success: false,
         error: {
           title: constants.TITLE_EMPTY,
