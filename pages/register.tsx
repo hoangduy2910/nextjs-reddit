@@ -3,6 +3,8 @@ import Head from "next/head";
 import Link from "next/link";
 
 import { UserService } from "~/services/user-service";
+import TextBox from "~/components/inputs/text-box";
+import Spinner from "~/components/spinner";
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -11,17 +13,23 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
+  const [errors, setErrors] = useState<any>({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const registerHandler = async (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    const [err, data] = await UserService.Register(form);
-    if (!err && data) {
-      console.log(data);
-    } else {
-      console.log(err)
-    }
+    setIsLoading(true);
+    setTimeout(async () => {
+      const [err, data] = await UserService.Register(form);
+      if (!err && data) {
+        setIsLoading(false);
+      } else {
+        setErrors({ ...err });
+        setIsLoading(false);
+      }
+    }, 1000);
   };
 
   return (
@@ -36,7 +44,7 @@ const Register = () => {
       <div className="flex flex-col justify-center pl-6">
         <div className="w-72">
           <h1 className="text-lg mb-2">Sign up</h1>
-          <p className="mb-10 text-xs">
+          <p className="mb-4 text-xs">
             By continuing, you agree to our
             <Link href="/">
               <a className="ml-1 text-blue-500">
@@ -45,49 +53,47 @@ const Register = () => {
             </Link>
           </p>
           <form>
-            <div className="mb-2">
-              <input
-                type="text"
-                className="p-2 w-full bg-gray-50 border bordere-gray-300 rounded outline-none focus:bg-white hover:bg-white cursor-pointer transition duration-400"
-                placeholder="Email"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-              />
-            </div>
-            <div className="mb-2">
-              <input
-                type="text"
-                className="p-2 w-full bg-gray-50 border bordere-gray-300 rounded outline-none focus:bg-white hover:bg-white cursor-pointer transition duration-400"
-                placeholder="Username"
-                value={form.userName}
-                onChange={(e) => setForm({ ...form, userName: e.target.value })}
-              />
-            </div>
-            <div className="mb-2">
-              <input
-                type="password"
-                className="p-2 w-full bg-gray-50 border bordere-gray-300 rounded outline-none focus:bg-white hover:bg-white cursor-pointer transition duration-400"
-                placeholder="Password"
-                value={form.password}
-                onChange={(e) => setForm({ ...form, password: e.target.value })}
-              />
-            </div>
-            <div className="mb-2">
-              <input
-                type="password"
-                className="p-2 w-full bg-gray-50 border bordere-gray-300 rounded outline-none focus:bg-white hover:bg-white cursor-pointer transition duration-400"
-                placeholder="Confirm Password"
-                value={form.confirmPassword}
-                onChange={(e) =>
-                  setForm({ ...form, confirmPassword: e.target.value })
-                }
-              />
-            </div>
+            <TextBox
+              className="mb-2"
+              type="text"
+              placeholder="Email"
+              value={form.email}
+              error={errors.email}
+              onChange={(value) => setForm({ ...form, email: value })}
+            />
+            <TextBox
+              className="mb-2"
+              type="text"
+              placeholder="Username"
+              value={form.userName}
+              error={errors.userName}
+              onChange={(value) => setForm({ ...form, userName: value })}
+            />
+            <TextBox
+              className="mb-2"
+              type="password"
+              placeholder="Password"
+              value={form.password}
+              error={errors.password}
+              onChange={(value) => setForm({ ...form, password: value })}
+            />
+            <TextBox
+              className="mb-4"
+              type="password"
+              placeholder="Confirm Password"
+              value={form.confirmPassword}
+              error={errors.confirmPassword}
+              onChange={(value) => setForm({ ...form, confirmPassword: value })}
+            />
             <button
-              className="w-full py-3 mb-4 text-xs font-bold text-white uppercase bg-blue-500 boder border-blue-500 rounded"
+              disabled={isLoading}
+              className="w-full py-3 mb-4 text-xs font-bold text-white uppercase bg-blue-500 boder border-blue-500 rounded focus:outline-none hover:bg-blue-600 transition duration-300"
               onClick={registerHandler}
             >
-              Sign Up
+              <div className="flex items-center justify-center">
+                <Spinner isShow={isLoading} />
+                Sign Up
+              </div>
             </button>
           </form>
           <small>

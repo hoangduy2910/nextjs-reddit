@@ -1,10 +1,10 @@
 module.exports = {
-  mode: 'jit',
-  purge: ['./pages/**/*.tsx', './components/**/*.tsx'],
+  mode: "jit",
+  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      body: ["IBM Plex Sans"]
+      body: ["IBM Plex Sans"],
     },
     extend: {},
   },
@@ -12,4 +12,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};

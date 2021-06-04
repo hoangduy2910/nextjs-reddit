@@ -3,6 +3,7 @@ import next from "next";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 import config from "./configs/config";
 import logging from "./configs/logging";
@@ -11,10 +12,10 @@ import logger from "./middlewares/logger";
 import userRoutes from "./routes/user";
 import postRoutes from "./routes/post";
 
+const NAMESPACE = "Server";
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 
-const NAMESPACE = "Server";
 app
   .prepare()
   .then(() => {
@@ -30,14 +31,12 @@ app
     server.use(cookieParser());
 
     // Allows for cross origin domain request:
-    server.use(function (req, res, next) {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-      );
-      next();
-    });
+    server.use(
+      cors({
+        credentials: true,
+        origin: process.env.ORIGIN,
+      })
+    );
 
     // Middlewares
     server.use(trim);
@@ -52,7 +51,7 @@ app
     server.use("/api/user", userRoutes);
     server.use("/api/post", postRoutes);
 
-    /** Error handling */
+    /** Error Handler */
     server.use((req, res, next) => {
       const error = new Error("Not found");
 

@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+import { validationResult } from "express-validator";
 import cookie from "cookie";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import logging from "../configs/logging";
 import constants from "../constants/constants";
+import helpers from "../utils/helpers";
 import User from "../models/user";
 
 const NAMESPACE = "UserController";
@@ -16,9 +18,12 @@ const getUserById = async (req: Request, res: Response) => {
 
     const user = await User.findById(id);
     if (!user) {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ success: false, error: constants.USER_NOT_EXIST });
+      return res.status(StatusCodes.NOT_FOUND).json({
+        success: false,
+        error: {
+          id: constants.USER_NOT_EXIST,
+        },
+      });
     }
 
     return res
@@ -26,38 +31,48 @@ const getUserById = async (req: Request, res: Response) => {
       .json({ success: true, data: user.toObject() });
   } catch (err) {
     logging.ERROR(NAMESPACE, "getUserById", err);
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ success: false, error: constants.SERVER_ERROR });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      error: {
+        server: constants.SERVER_ERROR,
+      },
+    });
   }
 };
 
 const login = async (req: Request, res: Response) => {
+  // Validate Input
+  const errors = validationResult(req);
+  if (errors.array().length > 0) {
+    return res.json({
+      success: false,
+      error: helpers.validateInput(errors.array()),
+    });
+  }
+
   try {
     const { email, password } = req.body;
-
-    // Validate Input
-    if (!email || !password) {
-      return res.status(StatusCodes.UNAUTHORIZED).json({
-        success: false,
-        error: constants.EMAIL_PASSWORD_EMPTY,
-      });
-    }
 
     // Validate Email
     const user = await User.findOne({ email });
     if (!user) {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ success: false, error: constants.USER_NOT_EXIST });
+      return res.status(StatusCodes.NOT_FOUND).json({
+        success: false,
+        error: {
+          email: constants.USER_NOT_EXIST,
+        },
+      });
     }
 
     // Vaidate Password
     const passwordIsValid = await bcrypt.compare(password, user.password);
     if (!passwordIsValid) {
-      return res
-        .status(StatusCodes.UNAUTHORIZED)
-        .json({ success: false, error: constants.PASSWORD_INVALID });
+      return res.status(StatusCodes.OK).json({
+        success: false,
+        error: {
+          password: constants.PASSWORD_INVALID,
+        },
+      });
     }
 
     // Generate Token
@@ -79,9 +94,12 @@ const login = async (req: Request, res: Response) => {
     });
   } catch (err) {
     logging.ERROR(NAMESPACE, "login", err);
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ success: false, error: constants.SERVER_ERROR });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      error: {
+        server: constants.SERVER_ERROR,
+      },
+    });
   }
 };
 
@@ -107,7 +125,7 @@ const getUserProfile = async (req: Request, res: Response) => {
     const user = await User.findOne({ userName });
     if (!user) {
       return res
-        .status(StatusCodes.UNAUTHORIZED)
+        .status(StatusCodes.OK)
         .json({ success: false, error: constants.USER_NOT_EXIST });
     }
 
@@ -116,37 +134,47 @@ const getUserProfile = async (req: Request, res: Response) => {
       .json({ success: true, data: user.toObject() });
   } catch (err) {
     logging.ERROR(NAMESPACE, "getUserProfile", err);
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ success: false, error: constants.SERVER_ERROR });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      error: {
+        server: constants.SERVER_ERROR,
+      },
+    });
   }
 };
 
 const createUser = async (req: Request, res: Response) => {
-  try {
-    const { email, userName, password, confirmPassword } = req.body;
+  const errors = validationResult(req);
+  if (errors.array().length > 0) {
+    return res.json({
+      success: false,
+      error: helpers.validateInput(errors.array()),
+    });
+  }
 
-    // Validate Password
-    if (password !== confirmPassword) {
-      return res
-        .status(StatusCodes.UNAUTHORIZED)
-        .json({ success: false, error: constants.PASSWORD_NOT_MATCH });
-    }
+  try {
+    const { email, userName, password } = req.body;
 
     // Validate Existed Email
     const existedEmail = await User.findOne({ email });
     if (existedEmail) {
-      return res
-        .status(StatusCodes.FORBIDDEN)
-        .json({ success: false, error: constants.EMAIL_EXIST });
+      return res.status(StatusCodes.OK).json({
+        success: false,
+        error: {
+          email: constants.EMAIL_EXIST,
+        },
+      });
     }
 
     // Validate Existed UserName
     const existedUserName = await User.findOne({ userName });
     if (existedUserName) {
-      return res
-        .status(StatusCodes.FORBIDDEN)
-        .json({ success: false, error: constants.USERNAME_EXIST });
+      return res.status(StatusCodes.OK).json({
+        success: false,
+        error: {
+          userName: constants.USERNAME_EXIST,
+        },
+      });
     }
 
     // Create Hashed Password
@@ -170,9 +198,12 @@ const createUser = async (req: Request, res: Response) => {
     return res.status(StatusCodes.OK).json({ success: true });
   } catch (err) {
     logging.ERROR(NAMESPACE, "createUser", err);
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ success: false, error: constants.SERVER_ERROR });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      error: {
+        server: constants.SERVER_ERROR,
+      },
+    });
   }
 };
 

@@ -34,7 +34,18 @@ const generateIdentifier = (length: number): string => {
   return result.join("");
 };
 
+const validateInput = (arr: any) => {
+  const errorObject = arr.reduce((obj: any, err: any) => {
+    const key = err.param;
+    const msg = err.msg;
+    if (!obj[key]) obj[key] = msg;
+    return obj;
+  }, {});
+  return errorObject;
+};
+
 export default {
   slugify,
   generateIdentifier,
+  validateInput,
 };

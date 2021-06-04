@@ -14,9 +14,12 @@ const createPost = async (req: Request, res: Response) => {
 
     // Validate Title
     if (!title.trim()) {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ success: false, error: constants.TITLE_EMPTY });
+      return res.status(StatusCodes.NOT_FOUND).json({
+        success: false,
+        error: {
+          title: constants.TITLE_EMPTY,
+        },
+      });
     }
 
     // Generate Identifier
