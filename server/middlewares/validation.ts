@@ -1,6 +1,7 @@
 import { check } from "express-validator";
 import constants from "../constants/constants";
 
+// Validate User
 const register = () => {
   return [
     check("email", constants.EMAIL_EMPTY).not().isEmpty(),
@@ -33,9 +34,21 @@ const login = () => {
   ];
 };
 
-const validate = {
-  register,
-  login,
+// Validate Post
+const createPost = () => {
+  return [
+    check("title", constants.TITLE_EMPTY).not().isEmpty(),
+    check("subName", constants.SUB_NAME_EMPTY).not().isEmpty(),
+  ];
 };
 
-export default validate;
+// Validate Sub
+const createSub = () => {
+  return [
+    check("name", constants.SUB_NAME_EMPTY).not().isEmpty(),
+    check("title", constants.TITLE_EMPTY).not().isEmpty(),
+  ];
+};
+
+// Export
+export default { login, register, createPost, createSub };

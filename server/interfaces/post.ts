@@ -5,9 +5,9 @@ interface IPost extends Document {
   title: string;
   slug: string;
   body: string;
-  subName: string;
   createdAt: Date;
   updatedAt: Date;
+  sub: Types.ObjectId;
   user: Types.ObjectId;
 }
 

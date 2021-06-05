@@ -4,6 +4,7 @@ import { validationResult } from "express-validator";
 import cookie from "cookie";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 import logging from "../configs/logging";
 import constants from "../constants/constants";
@@ -11,6 +12,8 @@ import helpers from "../utils/helpers";
 import User from "../models/user";
 
 const NAMESPACE = "UserController";
+
+dotenv.config();
 
 const getUserById = async (req: Request, res: Response) => {
   try {

@@ -12,6 +12,7 @@ import trim from "./middlewares/trim";
 import logger from "./middlewares/logger";
 import userRoutes from "./routes/user";
 import postRoutes from "./routes/post";
+import subRoutes from "./routes/sub";
 
 dotenv.config();
 
@@ -52,15 +53,17 @@ app
     });
 
     // Routes
-    server.use("/api/user", userRoutes);
-    server.use("/api/post", postRoutes);
+    server.use("/api/users", userRoutes);
+    server.use("/api/posts", postRoutes);
+    server.use("/api/subs", subRoutes);
 
     /** Error Handler */
     server.use((req, res, next) => {
       const error = new Error("Not found");
 
-      return res.status(404).json({
-        message: error.message,
+      return res.status(200).json({
+        success: false,
+        error: error.message,
       });
     });
 

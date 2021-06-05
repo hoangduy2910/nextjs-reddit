@@ -1,14 +1,14 @@
 import express from "express";
 
-import controller from "../controllers/user";
 import auth from "../middlewares/auth";
-import validate from "../middlewares/validate";
+import validation from "../middlewares/validation";
+import controller from "../controllers/user";
 
 const router = express.Router();
 
 // Public Routes
-router.post("/login", validate.login(), controller.login);
-router.post("/register", validate.register(), controller.createUser);
+router.post("/login", validation.login(), controller.login);
+router.post("/register", validation.register(), controller.createUser);
 // router.get("/:id", controller.getUserById);
 
 // Auth Routes

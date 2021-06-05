@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -7,6 +8,8 @@ import TextBox from "~/components/inputs/text-box";
 import Spinner from "~/components/spinner";
 
 const Login = () => {
+  const router = useRouter();
+
   const [form, setForm] = useState({
     userName: "",
     password: "",
@@ -22,9 +25,9 @@ const Login = () => {
     setTimeout(async () => {
       const [err, data] = await UserService.Login(form);
       if (!err && data) {
+        router.push("/login");
         setIsLoading(false);
       } else {
-        console.log(err);
         setErrors({ ...err });
         setIsLoading(false);
       }

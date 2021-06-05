@@ -8,12 +8,12 @@ import "../styles/globals.css";
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const { pathname } = useRouter();
 
-  const authRoutes = ["login", "register"];
+  const authRoutes = ["/login", "/register"];
   const isAuthRoute = authRoutes.includes(pathname);
 
   return (
     <React.Fragment>
-      {isAuthRoute && <NavBar />}
+      {!isAuthRoute && <NavBar />}
       <Component {...pageProps} />
     </React.Fragment>
   );

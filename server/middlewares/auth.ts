@@ -1,9 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
+import User from "../models/user";
 import logging from "../configs/logging";
 import constants from "../constants/constants";
+
+const NAMESPACE = "AUTH";
+dotenv.config();
 
 const auth = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -21,9 +26,12 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
         .json({ success: false, error: constants.TOKEN_INVALID });
     }
 
+    const user = await User.findOne({ userName });
+    res.locals.user = user;
+
     next();
   } catch (err) {
-    logging.ERROR("AUTH", "Auth - Middleware", err);
+    logging.ERROR(NAMESPACE, "Middleware", err);
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json({ success: false, error: constants.SERVER_ERROR });

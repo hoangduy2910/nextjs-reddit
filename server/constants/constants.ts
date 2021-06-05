@@ -23,8 +23,14 @@ const CONFIRM_PASWORD_MIN_LENGTH = "Confirm password more than 6 character.";
 
 const USER_NOT_EXIST = "User does not exist.";
 
-// Post
+// Post and Sub
 const TITLE_EMPTY = "Title must not be empty.";
+const BODY_EMPTY = "Body must not be empty.";
+
+// Sub
+const SUB_NOT_EXIST = "Sub does not exist.";
+const SUB_NAME_EMPTY = "Sub name must not be empty.";
+const SUB_NAME_EXIST = "Sub name already existed.";
 
 export default {
   UNAUTHENTICATION,
@@ -43,4 +49,8 @@ export default {
   CONFIRM_PASWORD_MIN_LENGTH,
   USER_NOT_EXIST,
   TITLE_EMPTY,
+  BODY_EMPTY,
+  SUB_NAME_EMPTY,
+  SUB_NAME_EXIST,
+  SUB_NOT_EXIST,
 };

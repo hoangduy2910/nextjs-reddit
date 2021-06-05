@@ -7,9 +7,9 @@ export const UserService = {
     password: string;
     confirmPassword: string;
   }) => {
-    return await BaseService.Post("/user/register", registerForm);
+    return await BaseService.Post("/users/register", registerForm);
   },
   Login: async (loginForm: { userName: string; password: string }) => {
-    return await BaseService.Post("/user/login", loginForm);
+    return await BaseService.Post("/users/login", loginForm);
   },
 };

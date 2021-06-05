@@ -1,3 +1,5 @@
+import { ValidationError } from "express-validator";
+
 const slugify = (str: string): string => {
   str = str.trim();
   str = str.toLowerCase();
@@ -34,13 +36,14 @@ const generateIdentifier = (length: number): string => {
   return result.join("");
 };
 
-const validateInput = (arr: any) => {
-  const errorObject = arr.reduce((obj: any, err: any) => {
+const validateInput = (arr: ValidationError[]) => {
+  const errorObject = arr.reduce((obj: any, err: ValidationError) => {
     const key = err.param;
     const msg = err.msg;
     if (!obj[key]) obj[key] = msg;
     return obj;
   }, {});
+  
   return errorObject;
 };
 
