@@ -1,7 +1,7 @@
 import { model, Schema, Types } from "mongoose";
-import ISub from "../interfaces/sub";
+import ICommunity from "../interfaces/community";
 
-const subSchema = new Schema<ISub>(
+const communitySchema = new Schema<ICommunity>(
   {
     name: { type: String, require: true },
     title: { type: String, require: true },
@@ -17,4 +17,4 @@ const subSchema = new Schema<ISub>(
   }
 );
 
-export default model<ISub>("Subs", subSchema);
+export default model<ICommunity>("Communities", communitySchema);

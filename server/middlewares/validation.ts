@@ -38,17 +38,17 @@ const login = () => {
 const createPost = () => {
   return [
     check("title", constants.TITLE_EMPTY).not().isEmpty(),
-    check("subName", constants.SUB_NAME_EMPTY).not().isEmpty(),
+    check("communityName", constants.COMMUNITY_NAME_EMPTY).not().isEmpty(),
   ];
 };
 
-// Validate Sub
-const createSub = () => {
+// Validate Community
+const createCommunity = () => {
   return [
-    check("name", constants.SUB_NAME_EMPTY).not().isEmpty(),
+    check("name", constants.COMMUNITY_NAME_EMPTY).not().isEmpty(),
     check("title", constants.TITLE_EMPTY).not().isEmpty(),
   ];
 };
 
 // Export
-export default { login, register, createPost, createSub };
+export default { login, register, createPost, createCommunity };

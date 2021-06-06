@@ -1,14 +1,14 @@
 import { Document, Types } from "mongoose";
 
-interface IPost extends Document {
+interface ICommunity extends Document {
   identifier: string;
   title: string;
   slug: string;
   body: string;
   createdAt: Date;
   updatedAt: Date;
-  sub: Types.ObjectId;
+  community: Types.ObjectId;
   user: Types.ObjectId;
 }
 
-export default IPost;
+export default ICommunity;

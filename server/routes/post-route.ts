@@ -2,7 +2,7 @@ import express from "express";
 
 import auth from "../middlewares/auth";
 import validation from "../middlewares/validation";
-import controller from "../controllers/post";
+import controller from "../controllers/post-controller";
 
 const router = express.Router();
 
@@ -11,7 +11,5 @@ const router = express.Router();
 // Auth Routes
 router.use(auth);
 router.post("/", validation.createPost(), controller.createPost);
-router.patch("/:id", controller.updatePost);
-router.delete("/:id", controller.deletePost);
 
 export default router;

@@ -3,7 +3,7 @@ export interface Post {
   title: string;
   slug: string;
   body: string;
-  subName: string;
+  communityName: string;
   createdAt: string;
   updatedAt: string;
 }

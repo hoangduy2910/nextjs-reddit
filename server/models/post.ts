@@ -7,7 +7,7 @@ const postSchema = new Schema<IPost>(
     title: { type: String, require: true },
     slug: { type: String, require: true },
     body: { type: String, require: true },
-    sub: { type: Types.ObjectId, require: true },
+    community: { type: Types.ObjectId, require: true, ref: "Communities" },
     user: { type: Types.ObjectId, require: true, ref: "Users" },
   },
   { timestamps: true, toObject: { getters: true } }

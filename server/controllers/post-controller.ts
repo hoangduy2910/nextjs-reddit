@@ -6,7 +6,7 @@ import logging from "../configs/logging";
 import helpers from "../utils/helpers";
 import constants from "../constants/constants";
 import Post from "../models/post";
-import Sub from "../models/sub";
+import Community from "../models/community";
 
 const NAMESPACE = "PostController";
 
@@ -21,15 +21,15 @@ const createPost = async (req: Request, res: Response) => {
   }
 
   try {
-    const { title, body, subName } = req.body;
+    const { title, body, communityName } = req.body;
 
-    // Validate Sub
-    const sub = await Sub.findOne({ name: subName });
-    if (!sub) {
+    // Validate Community
+    const community = await Community.findOne({ name: communityName });
+    if (!community) {
       return res.status(StatusCodes.OK).json({
         success: false,
         error: {
-          subName: constants.SUB_NOT_EXIST,
+          communityName: constants.COMMUNITY_NOT_EXIST,
         },
       });
     }
@@ -49,7 +49,7 @@ const createPost = async (req: Request, res: Response) => {
       title,
       slug,
       body,
-      sub,
+      community,
       user,
     });
     await newPost.save();
@@ -63,12 +63,6 @@ const createPost = async (req: Request, res: Response) => {
   }
 };
 
-const updatePost = async (req: Request, res: Response) => {};
-
-const deletePost = async (req: Request, res: Response) => {};
-
 export default {
   createPost,
-  updatePost,
-  deletePost,
 };

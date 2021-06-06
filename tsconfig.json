@@ -28,10 +28,10 @@
     "**/*.tsx",
     "next.config.js",
     "server/constants/constants.ts",
-    "server/controllers/user.ts",
+    "server/controllers/user-controller.ts",
     "server/middlewares/trim.ts",
     "server/models/user.ts",
-    "server/routes/user.ts",
+    "server/routes/user-route.ts",
     "server/config.js",
     "server/index.js"
   ],

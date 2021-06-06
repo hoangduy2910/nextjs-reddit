@@ -1,15 +1,15 @@
 import { Document, Types } from "mongoose";
 
-interface ISub extends Document {
+interface ICommunity extends Document {
   name: string;
   title: string;
   description: string;
   image: string;
   banner: string;
-  user: Types.ObjectId;
-  posts: Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
+  user: Types.ObjectId;
+  posts: Types.ObjectId[];
 }
 
-export default ISub;
+export default ICommunity;

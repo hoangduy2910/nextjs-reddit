@@ -10,9 +10,9 @@ import config from "./configs/config";
 import logging from "./configs/logging";
 import trim from "./middlewares/trim";
 import logger from "./middlewares/logger";
-import userRoutes from "./routes/user";
-import postRoutes from "./routes/post";
-import subRoutes from "./routes/sub";
+import userRoutes from "./routes/user-route";
+import postRoutes from "./routes/post-route";
+import communityRoutes from "./routes/community-route";
 
 dotenv.config();
 
@@ -55,7 +55,7 @@ app
     // Routes
     server.use("/api/users", userRoutes);
     server.use("/api/posts", postRoutes);
-    server.use("/api/subs", subRoutes);
+    server.use("/api/communities", communityRoutes);
 
     /** Error Handler */
     server.use((req, res, next) => {
