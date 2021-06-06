@@ -37,7 +37,7 @@ const login = () => {
 // Validate Post
 const createPost = () => {
   return [
-    check("title", constants.TITLE_EMPTY).not().isEmpty(),
+    check("title", constants.POST_TITLE_EMPTY).not().isEmpty(),
     check("communityName", constants.COMMUNITY_NAME_EMPTY).not().isEmpty(),
   ];
 };
@@ -46,9 +46,14 @@ const createPost = () => {
 const createCommunity = () => {
   return [
     check("name", constants.COMMUNITY_NAME_EMPTY).not().isEmpty(),
-    check("title", constants.TITLE_EMPTY).not().isEmpty(),
+    check("title", constants.POST_TITLE_EMPTY).not().isEmpty(),
   ];
 };
 
+// Validate Comment
+const createComment = () => {
+  return [check("body", constants.COMMENT_BODY_EMPTY).not().isEmpty()];
+};
+
 // Export
-export default { login, register, createPost, createCommunity };
+export default { login, register, createPost, createCommunity, createComment };

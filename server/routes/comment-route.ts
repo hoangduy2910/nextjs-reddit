@@ -2,7 +2,7 @@ import express from "express";
 
 import auth from "../middlewares/auth";
 import validation from "../middlewares/validation";
-import controller from "../controllers/community-controller";
+import controller from "../controllers/comment-controller";
 
 const router = express.Router();
 
@@ -10,6 +10,6 @@ const router = express.Router();
 
 // Auth Routes
 router.use(auth);
-router.post("/", validation.createCommunity(), controller.createCommunity);
+router.post("/", validation.createComment(), controller.createComment);
 
 export default router;

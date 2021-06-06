@@ -13,6 +13,7 @@ import logger from "./middlewares/logger";
 import userRoutes from "./routes/user-route";
 import postRoutes from "./routes/post-route";
 import communityRoutes from "./routes/community-route";
+import commentRoutes from "./routes/comment-route";
 
 dotenv.config();
 
@@ -56,6 +57,7 @@ app
     server.use("/api/users", userRoutes);
     server.use("/api/posts", postRoutes);
     server.use("/api/communities", communityRoutes);
+    server.use("/api/comments", commentRoutes);
 
     /** Error Handler */
     server.use((req, res, next) => {

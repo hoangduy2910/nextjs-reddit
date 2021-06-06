@@ -24,13 +24,17 @@ const CONFIRM_PASWORD_MIN_LENGTH = "Confirm password more than 6 character.";
 const USER_NOT_EXIST = "User does not exist.";
 
 // Post
-const TITLE_EMPTY = "Title must not be empty.";
-const BODY_EMPTY = "Body must not be empty.";
+const POST_NOT_EXIST = "Post does not exist.";
+const POST_TITLE_EMPTY = "Post title must not be empty.";
+const POST_BODY_EMPTY = "Post body must not be empty.";
 
 // Community
 const COMMUNITY_NOT_EXIST = "Community does not exist.";
 const COMMUNITY_NAME_EMPTY = "Community name must not be empty.";
 const COMMUNITY_NAME_EXIST = "Community name already existed.";
+
+// Comment
+const COMMENT_BODY_EMPTY = "Comment body must not be empty.";
 
 export default {
   UNAUTHENTICATION,
@@ -48,9 +52,11 @@ export default {
   CONFIRM_PASWORD_EMPTY,
   CONFIRM_PASWORD_MIN_LENGTH,
   USER_NOT_EXIST,
-  TITLE_EMPTY,
-  BODY_EMPTY,
+  POST_NOT_EXIST,
+  POST_TITLE_EMPTY,
+  POST_BODY_EMPTY,
   COMMUNITY_NAME_EMPTY,
   COMMUNITY_NAME_EXIST,
   COMMUNITY_NOT_EXIST,
+  COMMENT_BODY_EMPTY,
 };
