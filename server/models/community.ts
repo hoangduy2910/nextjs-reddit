@@ -8,8 +8,8 @@ const communitySchema = new Schema<ICommunity>(
     description: { type: String, require: false },
     image: { type: String, require: false },
     banner: { type: String, require: false },
-    user: { type: Types.ObjectId, require: true, ref: "Users" },
-    posts: [{ type: Types.ObjectId, require: true, ref: "Posts" }],
+    user: { type: Types.ObjectId, require: true, ref: "User" },
+    posts: [{ type: Types.ObjectId, require: true, ref: "Post" }],
   },
   {
     timestamps: true,
@@ -17,4 +17,4 @@ const communitySchema = new Schema<ICommunity>(
   }
 );
 
-export default model<ICommunity>("Communities", communitySchema);
+export default model<ICommunity>("Community", communitySchema);

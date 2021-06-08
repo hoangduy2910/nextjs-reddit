@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import Logo from "~/public/images/logo.svg";
 
-const NavBar = (props) => {
+const NavBar = () => {
   return (
     <div className="fixed inset-x-0 top-0 z-10 px-6 flex items-center justify-between h-12 bg-white">
       {/* Logo */}
@@ -24,7 +24,7 @@ const NavBar = (props) => {
         <input
           type="text"
           placeholder="Search"
-          className="w-96 bg-transparent py-1 pr-3 rounded focus:outline-none cursor-pointer"
+          className="w-160 bg-transparent py-1 pr-3 rounded focus:outline-none cursor-pointer"
         />
       </div>
 

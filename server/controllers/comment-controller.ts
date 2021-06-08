@@ -6,7 +6,7 @@ import logging from "../configs/logging";
 import constants from "../constants/constants";
 import helpers from "../utils/helpers";
 import Comment from "../models/comment";
-import Post from "server/models/post";
+import Post from "../models/post";
 
 const NAMESPACE = "CommentController";
 

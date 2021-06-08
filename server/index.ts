@@ -54,10 +54,10 @@ app
     });
 
     // Routes
-    server.use("/api/users", userRoutes);
-    server.use("/api/posts", postRoutes);
-    server.use("/api/communities", communityRoutes);
-    server.use("/api/comments", commentRoutes);
+    server.use("/api/user", userRoutes);
+    server.use("/api/post", postRoutes);
+    server.use("/api/community", communityRoutes);
+    server.use("/api/comment", commentRoutes);
 
     /** Error Handler */
     server.use((req, res, next) => {

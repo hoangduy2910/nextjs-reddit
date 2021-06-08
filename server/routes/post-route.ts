@@ -7,6 +7,7 @@ import controller from "../controllers/post-controller";
 const router = express.Router();
 
 // Public Routes
+router.get("/", controller.getPosts);
 
 // Auth Routes
 router.use(auth);

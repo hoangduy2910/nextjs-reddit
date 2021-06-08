@@ -27,8 +27,13 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
     }
 
     const user = await User.findOne({ userName });
-    res.locals.user = user;
+    if (!user) {
+      return res
+        .status(StatusCodes.OK)
+        .json({ success: false, error: constants.UNAUTHENTICATION });
+    }
 
+    res.locals.user = user;
     next();
   } catch (err) {
     logging.ERROR(NAMESPACE, "Middleware", err);

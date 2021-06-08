@@ -10,6 +10,23 @@ import Community from "../models/community";
 
 const NAMESPACE = "PostController";
 
+const getPosts = async (_: Request, res: Response) => {
+  try {
+    const posts = await Post.find({})
+      .populate("community", "name")
+      .populate("user", "userName")
+      .sort({ createdAt: -1 });
+    return res
+      .status(StatusCodes.OK)
+      .json({ success: true, data: posts.map((post) => post.toObject()) });
+  } catch (err) {
+    logging.ERROR(NAMESPACE, "[getPosts]", err);
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ success: false, error: constants.SERVER_ERROR });
+  }
+};
+
 const createPost = async (req: Request, res: Response) => {
   // Validate Input
   const errors = validationResult(req);
@@ -59,10 +76,13 @@ const createPost = async (req: Request, res: Response) => {
     });
   } catch (err) {
     logging.ERROR(NAMESPACE, "[createPost]", err);
-    return res.json({ success: false, error: constants.SERVER_ERROR });
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ success: false, error: constants.SERVER_ERROR });
   }
 };
 
 export default {
+  getPosts,
   createPost,
 };

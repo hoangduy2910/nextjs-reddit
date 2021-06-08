@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -7,6 +8,7 @@ import TextBox from "~/components/inputs/text-box";
 import Spinner from "~/components/spinner";
 
 const Register = () => {
+  const router = useRouter();
   const [form, setForm] = useState({
     email: "",
     userName: "",
@@ -25,11 +27,12 @@ const Register = () => {
       const [err, data] = await UserService.Register(form);
       if (!err && data) {
         setIsLoading(false);
+        router.push("/login");
       } else {
         setErrors({ ...err });
         setIsLoading(false);
       }
-    }, 1000);
+    }, 500);
   };
 
   return (

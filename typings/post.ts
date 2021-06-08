@@ -1,9 +1,14 @@
 export interface Post {
-  indentifier: string;
+  identifier: string;
   title: string;
   slug: string;
   body: string;
-  communityName: string;
+  community: {
+    name: string;
+  };
+  user: {
+    userName: string;
+  };
   createdAt: string;
   updatedAt: string;
 }

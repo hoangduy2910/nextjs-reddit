@@ -7,10 +7,10 @@ const postSchema = new Schema<IPost>(
     title: { type: String, require: true },
     slug: { type: String, require: true },
     body: { type: String, require: true },
-    community: { type: Types.ObjectId, require: true, ref: "Communities" },
-    user: { type: Types.ObjectId, require: true, ref: "Users" },
+    community: { type: Types.ObjectId, require: true, ref: "Community" },
+    user: { type: Types.ObjectId, require: true, ref: "User" },
   },
   { timestamps: true, toObject: { getters: true } }
 );
 
-export default model<IPost>("Posts", postSchema);
+export default model<IPost>("Post", postSchema);
