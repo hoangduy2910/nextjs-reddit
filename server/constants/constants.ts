@@ -36,6 +36,11 @@ const COMMUNITY_NAME_EXIST = "Community name already existed.";
 // Comment
 const COMMENT_BODY_EMPTY = "Comment body must not be empty.";
 
+// Vote
+const VOTE_VALUE_INVALID = "Vote value must be -1, 0 or 1.";
+const VOTE_OBJECT_INVALID = "Invalid vote object";
+const VOTE_NOT_EXIST = "Vote does not exis";
+
 export default {
   UNAUTHENTICATION,
   TOKEN_INVALID,
@@ -59,4 +64,7 @@ export default {
   COMMUNITY_NAME_EXIST,
   COMMUNITY_NOT_EXIST,
   COMMENT_BODY_EMPTY,
+  VOTE_VALUE_INVALID,
+  VOTE_OBJECT_INVALID,
+  VOTE_NOT_EXIST,
 };

@@ -14,6 +14,7 @@ import userRoutes from "./routes/user-route";
 import postRoutes from "./routes/post-route";
 import communityRoutes from "./routes/community-route";
 import commentRoutes from "./routes/comment-route";
+import voteRoutes from "./routes/vote-route";
 
 dotenv.config();
 
@@ -58,6 +59,7 @@ app
     server.use("/api/post", postRoutes);
     server.use("/api/community", communityRoutes);
     server.use("/api/comment", commentRoutes);
+    server.use("/api/vote", voteRoutes);
 
     /** Error Handler */
     server.use((req, res, next) => {

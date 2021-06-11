@@ -7,6 +7,7 @@ const commentSchema = new Schema<IComment>(
     body: { type: String, require: true },
     user: { type: Types.ObjectId, require: true, ref: "User" },
     post: { type: Types.ObjectId, require: true, ref: "Post" },
+    votes: [{ type: Types.ObjectId, require: true, ref: "Vote" }],
   },
   {
     timestamps: true,

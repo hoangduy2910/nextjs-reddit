@@ -23,13 +23,14 @@ const Register = () => {
   ) => {
     event.preventDefault();
     setIsLoading(true);
+
     setTimeout(async () => {
-      const [err, data] = await UserService.Register(form);
-      if (!err && data) {
+      const res = await UserService.Register(form);
+      if (res.success) {
         setIsLoading(false);
         router.push("/login");
       } else {
-        setErrors({ ...err });
+        setErrors({ ...res.error });
         setIsLoading(false);
       }
     }, 500);

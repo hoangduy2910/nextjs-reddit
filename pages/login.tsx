@@ -23,12 +23,12 @@ const Login = () => {
     event.preventDefault();
     setIsLoading(true);
     setTimeout(async () => {
-      const [err, data] = await UserService.Login(form);
-      if (!err && data) {
-        router.push("/login");
+      const res = await UserService.Login(form);
+      if (res.success) {
+        router.push("/");
         setIsLoading(false);
       } else {
-        setErrors({ ...err });
+        setErrors({ ...res.error });
         setIsLoading(false);
       }
     }, 1000);

@@ -9,6 +9,7 @@ interface ICommunity extends Document {
   updatedAt: Date;
   community: Types.ObjectId;
   user: Types.ObjectId;
+  votes: Types.ObjectId[];
 }
 
 export default ICommunity;

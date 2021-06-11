@@ -7,6 +7,7 @@ interface IComment extends Document {
   updatedAt: Date;
   post: Types.ObjectId;
   user: Types.ObjectId;
+  votes: Types.ObjectId[];
 }
 
 export default IComment;

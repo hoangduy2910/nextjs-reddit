@@ -89,9 +89,9 @@ const Home = ({ posts }) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   let posts = [];
 
-  const [err, data] = await PostService.GetListPost();
-  if (!err && data) {
-    posts = data.map((post: Post) => ({
+  const res = await PostService.GetListPost();
+  if (res.success) {
+    posts = res.data.map((post: Post) => ({
       ...post,
       createdAt: helpers.getRelativeTime(post.createdAt),
     }));
