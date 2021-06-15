@@ -12,19 +12,46 @@ const NAMESPACE = "PostController";
 
 const getPosts = async (_: Request, res: Response) => {
   try {
+    // Fetch Posts
     const posts = await Post.find({})
       .populate("community", "name")
       .populate("user", "userName")
+      .populate("votes")
       .sort({ createdAt: -1 });
-    return res
-      .status(StatusCodes.OK)
-      .json({ success: true, data: posts.map((post) => post.toObject()) });
+
+    // Get User
+    const user = res.locals.user;
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      data: posts.map((post) => ({
+        ...post.toJSON(),
+        userVote: post.getUserVote(user, post.votes),
+      })),
+    });
   } catch (err) {
     logging.ERROR(NAMESPACE, "[getPosts]", err);
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json({ success: false, error: constants.SERVER_ERROR });
   }
+};
+
+const getPost = async (req: Request, res: Response) => {
+  const { identifier, slug } = req.params;
+
+  const post = await Post.findOne({ identifier, slug });
+  if (!post) {
+    return res.status(StatusCodes.OK).json({
+      success: false,
+      error: constants.POST_NOT_EXIST,
+    });
+  }
+
+  return res.status(StatusCodes.OK).json({
+    success: true,
+    data: post.toObject(),
+  });
 };
 
 const createPost = async (req: Request, res: Response) => {
@@ -84,5 +111,6 @@ const createPost = async (req: Request, res: Response) => {
 
 export default {
   getPosts,
+  getPost,
   createPost,
 };

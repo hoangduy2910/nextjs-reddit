@@ -1,6 +1,6 @@
 import { Document, Types } from "mongoose";
 
-interface ICommunity extends Document {
+interface IPost extends Document {
   identifier: string;
   title: string;
   slug: string;
@@ -10,6 +10,11 @@ interface ICommunity extends Document {
   community: Types.ObjectId;
   user: Types.ObjectId;
   votes: Types.ObjectId[];
+  comments: Types.ObjectId[];
+  totalComment: number;
+  voteScore: number;
+  url: string;
+  getUserVote: Function;
 }
 
-export default ICommunity;
+export default IPost;

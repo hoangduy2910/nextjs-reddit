@@ -43,7 +43,7 @@ const validateInput = (arr: ValidationError[]) => {
     if (!obj[key]) obj[key] = msg;
     return obj;
   }, {});
-  
+
   return errorObject;
 };
 

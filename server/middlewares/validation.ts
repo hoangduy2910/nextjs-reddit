@@ -12,10 +12,8 @@ const register = () => {
       min: 6,
     }),
     check("password").custom((password, { req }) => {
-      if (password !== req.body.confirmPassword) {
-        throw new Error(constants.PASSWORD_NOT_MATCH);
-      }
-      return true;
+      if (password === req.body.confirmPassword) return true;
+      throw new Error(constants.PASSWORD_NOT_MATCH);
     }),
     check("confirmPassword", constants.CONFIRM_PASWORD_EMPTY).not().isEmpty(),
     check("confirmPassword", constants.CONFIRM_PASWORD_MIN_LENGTH).isLength({
@@ -55,5 +53,23 @@ const createComment = () => {
   return [check("body", constants.COMMENT_BODY_EMPTY).not().isEmpty()];
 };
 
+// Validate Vote
+const vote = () => {
+  return [
+    check("value").custom((value) => {
+      const exceptedValues = [-1, 0, 1];
+      if (exceptedValues.includes(value)) return true;
+      throw new Error(constants.VOTE_VALUE_INVALID);
+    }),
+  ];
+};
+
 // Export
-export default { login, register, createPost, createCommunity, createComment };
+export default {
+  login,
+  register,
+  createPost,
+  createCommunity,
+  createComment,
+  vote,
+};

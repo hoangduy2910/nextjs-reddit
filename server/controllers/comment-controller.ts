@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { StatusCodes } from "http-status-codes";
+import { startSession } from "mongoose";
 
 import logging from "../configs/logging";
 import constants from "../constants/constants";
@@ -9,6 +10,23 @@ import Comment from "../models/comment";
 import Post from "../models/post";
 
 const NAMESPACE = "CommentController";
+
+const getComments = async (req: Request, res: Response) => {
+  const { identifier, slug } = req.params;
+
+  const post = await Post.findOne({ identifier, slug }).populate("comments");
+  if (!post) {
+    return res.status(StatusCodes.OK).json({
+      success: false,
+      error: constants.POST_NOT_EXIST,
+    });
+  }
+
+  return res.status(StatusCodes.OK).json({
+    success: true,
+    data: post.comments,
+  });
+};
 
 const createComment = async (req: Request, res: Response) => {
   // Validate Input
@@ -33,20 +51,23 @@ const createComment = async (req: Request, res: Response) => {
       });
     }
 
-    // Generate Identifier
-    const id = helpers.generateIdentifier(8);
-
     // Get User
     const user = res.locals.user;
 
     // Save Community
     const newComment = new Comment({
-      identifier: id,
+      identifier: helpers.generateIdentifier(8),
       body,
       user,
       post,
     });
-    await newComment.save();
+
+    const session = await startSession();
+    session.startTransaction();
+    await newComment.save({ session });
+    post.comments.push(newComment.id);
+    await post.save({ session });
+    await session.commitTransaction();
 
     return res.status(StatusCodes.OK).json({
       success: true,
@@ -61,5 +82,6 @@ const createComment = async (req: Request, res: Response) => {
 };
 
 export default {
+  getComments,
   createComment,
 };

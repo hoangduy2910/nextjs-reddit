@@ -1,5 +1,5 @@
 import { BaseService } from "./base-service";
-import { Post } from "~/typings/post";
+import Post from "~/typings/post";
 
 export const PostService = {
   GetListPost: async () => {

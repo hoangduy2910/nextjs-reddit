@@ -1,4 +1,7 @@
 import { model, Schema, Types } from "mongoose";
+
+import IUser from "../interfaces/user";
+import IVote from "../interfaces/vote";
 import IComment from "../interfaces/comment";
 
 const commentSchema = new Schema<IComment>(
@@ -14,5 +17,11 @@ const commentSchema = new Schema<IComment>(
     toObject: { getters: true },
   }
 );
+
+commentSchema.virtual("userVote").get(function (user: IUser) {
+  const index = this.votes.findIndex((vote: IVote) => vote.user == user.id);
+  if (index > -1) return this.votes[index].value;
+  return 0;
+});
 
 export default model<IComment>("Comment", commentSchema);

@@ -1,4 +1,4 @@
-export interface Post {
+interface IPost {
   identifier: string;
   title: string;
   slug: string;
@@ -10,5 +10,12 @@ export interface Post {
     userName: string;
   };
   createdAt: string;
-  updatedAt: string;
+
+  // Virtual Fields
+  url: string;
+  voteScore: number;
+  totalComment: number;
+  userVote: number;
 }
+
+export default IPost;
